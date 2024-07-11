@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% for task in tasks %}
+       <p>{{ task.title }}</p>
+    {% endfor task %}
+
+{%  endblock %}
