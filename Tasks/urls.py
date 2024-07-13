@@ -20,5 +20,6 @@ from django.urls import path
 from Tasks.views import show_index
 
 urlpatterns = [
-    path('', show_index, name='index')
+    path('', show_index, name='index'),
+    #path('/login', show_index, name='index'),
 ]

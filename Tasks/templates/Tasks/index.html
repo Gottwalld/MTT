@@ -2,9 +2,40 @@
 
 
 {% block content %}
+    <div class="container" style="display: flex; flex-direction: row">
+{#        {{ calendar|safe }}#}
 
-    {% for task in tasks %}
-       <p>{{ task.title }}</p>
-    {% endfor task %}
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Заголовок</th>
+      <th scope="col">Описание</th>
+      <th scope="col">Ответственный</th>
+      <th scope="col">Должность</th>
+      <th scope="col">Срочность</th>
+      <th scope="col">Статус</th>
+        <th scope="col">Создано</th>
+        <th scope="col">Закрытие</th>
+        <th scope="col">Осталось</th>
+    </tr>
+  </thead>
+  <tbody>
+
+        {% for task in tasks %}
+            <tr>
+            <th scope="row">{{ task.id }}</th>
+            <td>{{ task.title }}</td>
+            <td>{{ task.content }}</td>
+            <td>{{ task.responce_worker }}</td>
+            <td>!</td>
+            <td>{{ task.urgency }}</td>
+            <td>{{ task.task_status }}</td>
+            <td>{{ task.time_create }}</td>
+            <td>{{ task.time_end }}</td>
+                <td>{{ task.time_difference }}</td>
+                </tr>
+        {% endfor task %}
+</div>
 
 {%  endblock %}

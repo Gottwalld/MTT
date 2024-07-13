@@ -1,5 +1,7 @@
 from django.db import models
 
+from datetime import timedelta
+from django.utils import timezone
 # Create your models here.
 
 class Workers(models.Model):
@@ -35,7 +37,21 @@ class Tasks(models.Model):
     task_status = models.CharField(max_length=30, choices=(('В работе','В работе'), ('Открыта','Открыта'), ('Выполнена','Выполнена'), ('Просрочена','Просрочена')), default='Открыта')
     time_create = models.DateTimeField(auto_now_add=True, null=True)
     time_end = models.DateTimeField(null=True)
-    time_to_task = models.DateTimeField(null=True)
+
+
+    def time_difference(self):
+        if self.time_create and self.time_end:
+            time_now = timezone.now()
+            difference = self.time_end - time_now
+
+            if time_now > self.time_end:
+                difference = time_now - self.time_end
+                hours = difference.seconds // 3600
+                minutes = (difference.seconds % 3600) // 60
+                return f'-{difference.days} дней {hours:02d}:{minutes:02d}'
+            else:
+                return f'{difference.days} дней {difference.seconds // 3600:02d}:{(difference.seconds % 3600) // 60:02d}'
+        return timedelta(seconds=0)  # Возвращаем ноль или другое значение по умолчанию
 
     def __str__(self):
         return self.title
