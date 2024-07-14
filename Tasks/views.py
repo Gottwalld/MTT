@@ -1,35 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from Tasks.models import Tasks
 
 from django import forms
 
-import calendar
-from datetime import datetime
-
 # Create your views here.
 
-menu = {
-    'Задачи':'index',
-    'Логин':'',
-    'Регистрация':'',
-
-}
-
-def calendar_view():
-    # Получаем текущую дату
-    now = datetime.now()
-    year = now.year
-    month = now.month
-    today = now.day
-
-    # Создаем объект HTMLCalendar и генерируем HTML для текущего месяца
-    cal = calendar.HTMLCalendar(calendar.SUNDAY)
-    month_calendar = cal.formatmonth(year, month)
-
-    # Добавляем класс CSS для выделения текущего дня
-    month_calendar = month_calendar.replace(f'>{today}<', f' class="today">{today}<')
-    return month_calendar
+menu = [{'title':'Задачи', 'url_name':'index'},
+    {'title': 'Войти', 'url_name': 'login'},
+    {'title': 'Регистрация', 'url_name': 'registration_page'},]
 
 
 
@@ -40,7 +19,23 @@ def show_index(request):
 
         'menu': menu,
         'tasks':tasks,
-        'calendar': calendar_view(),
 
     }
     return render(request, 'Tasks/index.html', data)
+
+
+def task_page(request, pk):
+    posts = get_object_or_404(Tasks, pk=pk)
+
+    data = {
+        'post': posts,
+        'menu': menu,
+
+    }
+    return render(request, 'Tasks/task-page.html', data)
+
+def login_page(request):
+    return 0
+
+def registration_page(request):
+    return render(request, 'Tasks/registration.html')

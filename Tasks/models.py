@@ -1,6 +1,8 @@
 from django.db import models
 
 from datetime import timedelta
+
+from django.urls import reverse
 from django.utils import timezone
 # Create your models here.
 
@@ -38,6 +40,9 @@ class Tasks(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, null=True)
     time_end = models.DateTimeField(null=True)
 
+    def get_absolute_url(self):
+        return reverse('task', kwargs={'pk': self.pk})
+
 
     def time_difference(self):
         if self.time_create and self.time_end:
@@ -48,9 +53,9 @@ class Tasks(models.Model):
                 difference = time_now - self.time_end
                 hours = difference.seconds // 3600
                 minutes = (difference.seconds % 3600) // 60
-                return f'-{difference.days} дней {hours:02d}:{minutes:02d}'
+                return f'-{difference.days} дней {hours:02d} часов {minutes:02d} минут'
             else:
-                return f'{difference.days} дней {difference.seconds // 3600:02d}:{(difference.seconds % 3600) // 60:02d}'
+                return f'{difference.days} дней {difference.seconds // 3600:02d} часов {(difference.seconds % 3600) // 60:02d} минут'
         return timedelta(seconds=0)  # Возвращаем ноль или другое значение по умолчанию
 
     def __str__(self):

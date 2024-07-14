@@ -6,21 +6,31 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <meta http-equiv="refresh" content="10">     {# Обновление страницы каждые content секунд #}
-    
+    <meta http-equiv="refresh" content="60">     {# Обновление страницы каждые content секунд #}
+
 </head>
 <body>
 
-<ul class="nav" style="background-color: #b9e5ff; display: flex;
-  justify-content: center; align-items: center">
-<H3>{% now "d F Y H:i l" %}</H3>
+<nav class="navbar navbar-expand-xl navbar-light" style="background-color: #ced7cf ;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse show" id="navbarLight">
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0" style="font-size: 25px;">
+                    {% for m in menu %}
+                    <li class="nav-item">
+                    <a class="btn btn-outline-primary" aria-current="page" href="{% url m.url_name %}">{{ m.title }}</a>
+                    </li>
+                    {% endfor menu %}
+             <li style="font-size:25px;">{% now "d F Y H:i l" %}</li>
+            </ul>
 
-    {% for m in menu %}
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page"  href="#">{{ m }} |</a>
-      </li>
-    {% endfor menu%}
-</ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Поиск по id или заголовку" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
 
 {% block content %}
 

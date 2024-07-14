@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+            <div class="d-grid gap-3">
+            <div class="p-2 bg-light border"> Номер задачи: {{ post.id }}</div>
+            <div class="p-2 bg-light border"> Заголовок: {{ post.title }}</div>
+            <div class="p-2 bg-light border"> Ответственный: {{ post.responce_worker }}</div>
+            <div class="p-2 bg-light border"> Статус: {{ post.task_status }}</div>
+            <div class="p-2 bg-light border"> Срочность: {{ post.urgency }}</div>
+            <div class="p-2 bg-light border"> Дата создания: {{ post.time_create }}</div>
+            <div class="p-2 bg-light border"> Дата окончания: {{ post.time_end }}</div>
+            <div class="p-2 bg-light border"> Осталось времени: {{ post.time_difference }}</div>
+
+
+            <div class="form-floating">
+            <h6>Подробное описание</h6>
+            <label for="floatingTextarea">{{ post.content }}</label>
+            </div>
+{#                Кнопка должна отображаться, если имя пользователя совпадает с именем в задаче#}
+            <button type="button" class="btn btn-success">Success</button>
+            </div>
+
+
+
+{% endblock content %}}
+
+
+
+
