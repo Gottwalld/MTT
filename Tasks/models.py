@@ -32,11 +32,11 @@ class bureaus_list (models.Model):
         return self.bureau
 
 class Tasks(models.Model):
-    title = models.CharField(max_length=50)
-    content = models.TextField(max_length=200, blank=True, null=True)
-    responce_worker = models.ForeignKey(Workers, on_delete=models.SET_NULL, null=True)
-    urgency = models.CharField(max_length=30, choices=(('Срочно', 'Срочно'), ('Нормально', 'Нормально'), ('Очень срочно', 'Очень срочно')))
-    task_status = models.CharField(max_length=30, choices=(('В работе','В работе'), ('Открыта','Открыта'), ('Выполнена','Выполнена'), ('Просрочена','Просрочена')), default='Открыта')
+    title = models.CharField(max_length=50, verbose_name="Заголовок")
+    content = models.TextField(max_length=200, blank=True, null=True, verbose_name='Описание')
+    responce_worker = models.ForeignKey(Workers, on_delete=models.SET_NULL, null=True, verbose_name="Ответс. работник")
+    urgency = models.CharField(max_length=30, choices=(('Срочно', 'Срочно'), ('Нормально', 'Нормально'), ('Очень срочно', 'Очень срочно')), verbose_name="Срочность")
+    task_status = models.CharField(max_length=30, choices=(('В работе','В работе'), ('Открыта','Открыта'), ('Выполнена','Выполнена'), ('Просрочена','Просрочена')), default='Открыта', verbose_name="Статус")
     time_create = models.DateTimeField(auto_now_add=True, null=True)
     time_end = models.DateTimeField(null=True)
 

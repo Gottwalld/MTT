@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 
+from Tasks.forms import AddPostForm
 from Tasks.models import Tasks
 
 from django import forms
@@ -34,8 +36,18 @@ def task_page(request, pk):
     }
     return render(request, 'Tasks/task-page.html', data)
 
+
+def add_task(request):
+
+
+    form = AddPostForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+
+    return render(request, 'Tasks/add-task.html', {'form': form,})
 def login_page(request):
-    return 0
+    return HttpResponse('Страница логина')
 
 def registration_page(request):
     return render(request, 'Tasks/registration.html')
