@@ -44,7 +44,6 @@ def add_task(request):
     if form.is_valid():
         form.save()
         return redirect('index')
-
     return render(request, 'Tasks/add-task.html', {'form': form,})
 def login_page(request):
     return HttpResponse('Страница логина')

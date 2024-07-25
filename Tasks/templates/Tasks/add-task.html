@@ -1,8 +1,21 @@
-<div class="input-group mb-3">
-    <form action="" method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MTT</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
 
-    {% csrf_token %}
+ <body class="text-center">
+    <form action=""  method="post">
+     {% csrf_token %}
+
+    <div class="">
     {{ form.as_p }}
-    <button type="submit">Добавить</button>
-</form>
-</div>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Добавить задачу</button>
+    </form>
+</body>
