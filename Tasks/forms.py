@@ -2,7 +2,7 @@
 
 from django.forms import DateInput, SelectDateWidget
 
-from Tasks.models import Tasks
+from Tasks.models import Tasks, Workers
 from django import forms
 
 class AddPostForm(forms.ModelForm):
@@ -13,3 +13,7 @@ class AddPostForm(forms.ModelForm):
         fields = ['title', 'content', 'responce_worker', 'urgency', 'task_status',  'time_end']
 
 
+class RegistraionForm(forms.ModelForm):
+    class Meta:
+        model = Workers
+        fields = ['first_name', 'last_name', 'surname', 'rang', 'email',  'phone', 'bureau']

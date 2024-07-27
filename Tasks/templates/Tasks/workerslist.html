@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <button type="button" class="btn btn-info"><a href="{% url 'task_add' %}">Добавить задачу</a></button>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Отчество</th>
+      <th scope="col">Должность</th>
+      <th scope="col">Почта</th>
+      <th scope="col">Рабочий телефон</th>
+        <th scope="col">Бюро</th>
+    </tr>
+  </thead>
+
+        {% for W in Workers %}
+            <tr>
+            <th scope="row">{{ W.first_name }}</th>
+            <td>{{ W.last_name }}</td>
+            <td>{{ W.surname }}</td>
+            <td>{{ W.rang }}</td>
+            <td>{{ W.email }}</td>
+            <td>{{ W.phone }}</td>
+            <td>{{ W.bureau }}</td>
+
+        {% endfor Workers %}
+
+{% endblock content %}

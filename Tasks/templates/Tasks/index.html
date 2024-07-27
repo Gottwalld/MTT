@@ -3,7 +3,6 @@
 
 {% block content %}
         <button type="button" class="btn btn-info"><a href="{% url 'task_add' %}">Добавить задачу</a></button>
-    </form>
     <table class="table">
   <thead>
     <tr>
@@ -16,12 +15,21 @@
       <th scope="col">Статус</th>
         <th scope="col">Создано</th>
         <th scope="col">Закрытие</th>
-        <th scope="col">Осталось</th>
+        <th scope="col">Осталось времени</th>
     </tr>
   </thead>
-  <tbody>
+
         {% for task in tasks %}
-            <tr>
+            <tr
+            {% if task.task_status  == 'В работе' %}
+                style="background-color: #bbffa7;">
+                    {% elif task.task_status == 'Просрочена' %}
+                    style="background-color: #ff7b79;">
+                                        {% elif task.task_status == 'Выполнена' %}
+                                        style="background-color: #6a6c68;">
+            {% else  %}
+                >
+            {% endif %}
             <th scope="row">{{ task.id }}</th>
             <td><a href="{{ task.get_absolute_url }}">{{ task.title }}</a></td>
             <td>{{ task.content }}</td>
@@ -31,9 +39,13 @@
             <td>{{ task.task_status }}</td>
             <td>{{ task.time_create }}</td>
             <td>{{ task.time_end }}</td>
+            {% if task.task_status == 'Выполнена' %}
+            	<td>-----</td>
+            {% else %}
                 <td>{{ task.time_difference }}</td>
-                </tr>
-        {% endfor task %}
-</div>
+            {% endif %}
 
-{%  endblock %}
+            </tr>
+        {% endfor task %}
+
+{% endblock content %}

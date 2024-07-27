@@ -1,8 +1,11 @@
+import os
+
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from Tasks.forms import AddPostForm
-from Tasks.models import Tasks
+from Tasks.forms import AddPostForm, RegistraionForm
+from Tasks.models import Tasks, Workers
 
 from django import forms
 
@@ -16,6 +19,12 @@ menu = [{'title':'Задачи', 'url_name':'index'},
 
 def show_index(request):
     tasks = Tasks.objects.all()
+    tasks_will_red = Tasks.objects.filter(~Q(task_status='Просрочена') & ~Q(task_status='Выполнена'))
+
+    for task in tasks_will_red:
+        if task.time_difference()[0] == '-':
+            task.task_status = 'Просрочена'
+            task.save()
 
     data = {
 
@@ -38,15 +47,29 @@ def task_page(request, pk):
 
 
 def add_task(request):
-
-
     form = AddPostForm(request.POST)
+
     if form.is_valid():
         form.save()
         return redirect('index')
     return render(request, 'Tasks/add-task.html', {'form': form,})
+
+
 def login_page(request):
     return HttpResponse('Страница логина')
 
 def registration_page(request):
-    return render(request, 'Tasks/registration.html')
+    form = RegistraionForm(request.POST)
+
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+    return render(request, 'Tasks/registration.html', {'form': form, })
+
+def workers_list(request):
+    Workerss = Workers.objects.all()
+    data = {
+        'menu':menu,
+        'Workers':Workerss,
+    }
+    return render(request, 'Tasks/workerslist.html', data)

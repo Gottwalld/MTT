@@ -7,13 +7,13 @@ from django.utils import timezone
 # Create your models here.
 
 class Workers(models.Model):
-    first_name = models.CharField(max_length=40)
-    last_name = models.CharField(max_length=40)
-    surname = models.CharField(max_length=40)
-    rang = models.ForeignKey(to='rang_list', on_delete=models.SET_NULL, null=True)
-    email = models.EmailField(blank=True, null=True)
-    phone = models.CharField(max_length=30, blank=True, null=True)
-    bureau = models.ForeignKey(to='bureaus_list', on_delete=models.SET_NULL, null=True, blank=True)
+    first_name = models.CharField(max_length=40, verbose_name='Фамилия')
+    last_name = models.CharField(max_length=40, verbose_name='Имя')
+    surname = models.CharField(max_length=40, verbose_name='Отчество')
+    rang = models.ForeignKey(to='rang_list', on_delete=models.SET_NULL, null=True, verbose_name='Должность')
+    email = models.EmailField(blank=True, null=True, verbose_name='Почта')
+    phone = models.CharField(max_length=30, blank=True, null=True, verbose_name='Рабочий телефон')
+    bureau = models.ForeignKey(to='bureaus_list', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Бюро')
 
 
     def __str__(self):
@@ -40,16 +40,18 @@ class Tasks(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, null=True)
     time_end = models.DateTimeField(null=True)
 
+
     def get_absolute_url(self):
         return reverse('task', kwargs={'pk': self.pk})
 
 
     def time_difference(self):
+        'Вычисляет разницу между временем создания задачи и временем ее окончания, так же показывает время просрочки'
         if self.time_create and self.time_end:
             time_now = timezone.now()
             difference = self.time_end - time_now
 
-            if time_now > self.time_end:
+            if time_now > self.time_end:  # Если просрочка, то вычисляет и отображает верный расчет со значением -
                 difference = time_now - self.time_end
                 hours = difference.seconds // 3600
                 minutes = (difference.seconds % 3600) // 60
