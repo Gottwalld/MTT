@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from Tasks.views import show_index, task_page, login_page, registration_page, add_task, workers_list
+from Tasks.views import show_index, task_page, login_page, registration_page, add_task, workers_list, show_pass
 
 urlpatterns = [
     path('', show_index, name='index'),
@@ -26,5 +26,6 @@ urlpatterns = [
     path('task/<int:pk>/', task_page, name='task'),
     path('task_add/', add_task, name='task_add'),
     path('workers_list/', workers_list, name='workers_list'),
+    path('test/', show_pass, name='test')
 
 ]

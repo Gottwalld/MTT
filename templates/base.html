@@ -11,31 +11,22 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-xl navbar-light" style="background-color: #ced7cf ;">
+<nav class="navbar navbar-expand-xl navbar-light";">
     <div class="container-fluid">
         <div class="collapse navbar-collapse show" id="navbarLight">
-            <ul class="navbar-nav me-auto mb-2 mb-xl-0" style="font-size: 25px;">
                     {% for m in menu %}
-                    <li class="nav-item">
-                    <a class="btn btn-outline-primary" aria-current="page" href="{% url m.url_name %}">{{ m.title }}</a>
-                    </li>
+                         <a class="btn btn-primary mx-1" aria-current="page" href="{% url m.url_name %}">{{ m.title }}</a>
                     {% endfor menu %}
-             <li style="font-size:25px;">{% now "d F Y H:i l" %}</li>
-            </ul>
-
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Поиск по id или заголовку" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
         </div>
     </div>
-</nav>
 
+</nav>
+<div class="text-center">
+    <p class='mx-auto' style="font-size:25px;">{% now "d F Y H:i l" %}</p>
+</div>
 
 {% block content %}
-
 {% endblock content %}
-
 
 </body>
 </html>

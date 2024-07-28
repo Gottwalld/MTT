@@ -11,10 +11,12 @@ from django import forms
 
 # Create your views here.
 
-menu = [{'title':'Задачи', 'url_name':'index'},
-    {'title': 'Войти', 'url_name': 'login'},
-    {'title': 'Регистрация', 'url_name': 'registration_page'},]
-
+menu = [{'title': 'Главная страница', 'url_name': 'index'},
+        {'title': 'Добавить задачу', 'url_name': 'task_add'},
+        {'title': 'Список работников', 'url_name': 'workers_list'},
+        {'title': 'Войти', 'url_name': 'login'},
+        {'title': 'Регистрация', 'url_name': 'registration_page'},
+        ]
 
 
 def show_index(request):
@@ -26,10 +28,12 @@ def show_index(request):
             task.task_status = 'Просрочена'
             task.save()
 
+
+
     data = {
 
         'menu': menu,
-        'tasks':tasks,
+        'tasks': tasks,
 
     }
     return render(request, 'Tasks/index.html', data)
@@ -52,11 +56,12 @@ def add_task(request):
     if form.is_valid():
         form.save()
         return redirect('index')
-    return render(request, 'Tasks/add-task.html', {'form': form,})
+    return render(request, 'Tasks/add-task.html', {'form': form, })
 
 
 def login_page(request):
     return HttpResponse('Страница логина')
+
 
 def registration_page(request):
     form = RegistraionForm(request.POST)
@@ -66,10 +71,15 @@ def registration_page(request):
         return redirect('index')
     return render(request, 'Tasks/registration.html', {'form': form, })
 
+
 def workers_list(request):
     Workerss = Workers.objects.all()
     data = {
-        'menu':menu,
-        'Workers':Workerss,
+        'menu': menu,
+        'Workers': Workerss,
     }
     return render(request, 'Tasks/workerslist.html', data)
+
+
+def show_pass(request):
+    return render(request, 'Tasks/saasd.html')

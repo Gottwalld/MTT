@@ -2,7 +2,18 @@
 
 
 {% block content %}
-        <button type="button" class="btn btn-info"><a href="{% url 'task_add' %}">Добавить задачу</a></button>
+
+    <div class="container-fluid">
+
+
+
+<div class="col-12">
+
+    <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Поиск по id или заголовку" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+
     <table class="table">
   <thead>
     <tr>
@@ -30,7 +41,8 @@
             {% else  %}
                 >
             {% endif %}
-            <th scope="row">{{ task.id }}</th>
+            <th scope="row">{{ task.id }}
+            </th>
             <td><a href="{{ task.get_absolute_url }}">{{ task.title }}</a></td>
             <td>{{ task.content }}</td>
             <td>{{ task.responce_worker }}</td>
@@ -47,5 +59,7 @@
 
             </tr>
         {% endfor task %}
-
+    </table>
+    </div>
+</div>
 {% endblock content %}
